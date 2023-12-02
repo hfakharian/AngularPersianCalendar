@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'AngularPersianCalendarGithub';
+  
+ public datePersian:string = "1402/09/11";
+
+ onValueChanged(date:string){
+  console.log(date);
+ }
+
 }

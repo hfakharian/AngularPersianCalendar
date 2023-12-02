@@ -1,0 +1,86 @@
+<div class="callendar-main">
+    <button [disabled]="disabled" (click)="togglerMenu($event)" class="callendar-btn" type="button" #buttonCallendar>
+        <span  #buttonCallendar><svg viewBox="0 0 24 24" width="18px" height="18px" fill="#333333" focusable="false"
+                class="mat-datepicker-toggle-default-icon ng-star-inserted"  #buttonCallendar>
+                <path
+                    d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z">
+                </path>
+            </svg>
+        </span>
+    </button>
+    <input [disabled]="disabled ?? false" dxDatePersianMask (blur)="blurInput($event)" (change)="changeInput($event)" [(ngModel)]="inputDate" type="text" class="form-control text-dark" [ngClass]="{'border-less': border === false}"
+        #inputCallendar>
+</div>
+
+<ng-template #modalCalendar>
+    <div class="callendar-body" [ngClass]="isTop ? 'top' : 'bot'" [style.width]="width" [style.height]="height" [style.transform]="transform" #bodyCallendar>
+        <div title="" [ngClass]="isOpen ? 'callendar-menu show' : 'callendar-menu hide'"  #menuCallendar>
+            <div class="row" >
+                <div class="col-12">
+                    <div class="row mt-2 mb-2">
+                        <div class="col-12">
+
+                            <div class="input-group toolbar">
+                                <div class="input-group-prepend">
+                                    <button (click)="pbuttonCallendar()" type="button" class="btn">
+                                        <i class="p-button"></i>
+                                    </button>
+                                </div>
+
+                                <span (click)="cbuttonCallendar()" class="c-button">{{OneTitle + ' ' + TwoTitle}}</span>
+
+                                <div class="input-group-prepend">
+                                    <button (click)="nbuttonCallendar()" type="button" class="btn">
+                                        <i class="n-button"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="step === 1" class="callendar-row">
+                        <div class="callendar-col text-muted">ش</div>
+                        <div class="callendar-col text-muted">ی</div>
+                        <div class="callendar-col text-muted">د</div>
+                        <div class="callendar-col text-muted">س</div>
+                        <div class="callendar-col text-muted">چ</div>
+                        <div class="callendar-col text-muted">پ</div>
+                        <div class="callendar-col text-muted">ج</div>
+                    </div>
+                    <hr class="divider">
+
+                    <div *ngIf="step === 1" class="callendar-row">
+                        <ng-container *ngFor="let c of listOfDate">
+                            <div *ngIf="c.value === 0" class="callendar-col"></div>
+                            <div *ngIf="c.value !== 0" class="callendar-col item" title="">
+                                <div (click)="setDate(c.step,c)" class="item"
+                                    [ngClass]="{' now' : bolDateNow && strDateNow === c.title,' select' : bolDateSelect && strDateSelect === c.title}">
+                                    {{c.title}}</div>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div *ngIf="step === 2" class="callendar-row">
+                        <ng-container *ngFor="let c of listOfDate">
+                            <div class="col-4 item">
+                                <div (click)="setDate(c.step,c)" class="item"
+                                    [ngClass]="{' now' : strDateNow === c.title,' select' : strDateSelect === c.title}">
+                                    {{c.title}}</div>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div *ngIf="step === 3" class="callendar-row">
+                        <ng-container *ngFor="let c of listOfDate">
+                            <div class="col-4 item">
+                                <div (click)="setDate(c.step,c)" class="item"
+                                    [ngClass]="{' now' : strDateNow === c.title,' select' : strDateSelect === c.title}">
+                                    {{c.title}}</div>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
